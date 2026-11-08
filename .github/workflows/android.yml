@@ -1,4 +1,3 @@
-
 name: LY Remote Android Build
 
 on:
@@ -23,6 +22,12 @@ jobs:
       - name: Generate Android project
         run: flutter create --platforms=android --org com.lyremote --project-name universal .
 
+      - name: Install IR controller
+        run: |
+          mkdir -p android/app/src/main/kotlin/com/lyremote/universal
+          cp native/android/MainActivity.kt android/app/src/main/kotlin/com/lyremote/universal/MainActivity.kt
+          sed -i '/<application/i\    <uses-permission android:name="android.permission.TRANSMIT_IR" />\n    <uses-feature android:name="android.hardware.consumerir" android:required="false" />' android/app/src/main/AndroidManifest.xml
+
       - name: Get dependencies
         run: flutter pub get
 
@@ -32,7 +37,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: LY-REMOTE-UNIVERSAL-APK
+          name: LY-REMOTE-UNIVERSAL-APK-V2
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 14
           
