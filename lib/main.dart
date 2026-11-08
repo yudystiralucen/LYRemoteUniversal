@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+1import 'package:flutter/material.dart';
 import 'ir_controller.dart';
 
 void main() {
@@ -192,10 +192,13 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => RemotePage(
-                        title: device[0] as String,
-                        icon: device[2] as IconData,
-                        irAvailable: irAvailable == true,
+                      builder: (_) => device[0] == 'AC REMOTE'
+    ? const GreeAcRemotePage()
+    : RemotePage(
+        title: device[0] as String,
+        icon: device[2] as IconData,
+        irAvailable: irAvailable == true,
+      ),
                       ),
                     ),
                   );
