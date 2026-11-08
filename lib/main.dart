@@ -188,21 +188,26 @@ class _HomePageState extends State<HomePage> {
 
               return InkWell(
                 borderRadius: BorderRadius.circular(18),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => device[0] == 'AC REMOTE'
-    ? const GreeAcRemotePage()
-    : RemotePage(
-        title: device[0] as String,
-        icon: device[2] as IconData,
-        irAvailable: irAvailable == true,
-      ),
-                      ),
-                    ),
-                  );
-                },
+                
+onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) {
+        if (device[0] == 'AC REMOTE') {
+          return GreeAcRemotePage();
+        }
+
+        return RemotePage(
+          title: device[0] as String,
+          icon: device[2] as IconData,
+          irAvailable: irAvailable == true,
+        );
+      },
+    ),
+  );
+},
+                
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
